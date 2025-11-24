@@ -2,6 +2,7 @@
 
 A simple budget planning software for managing income and expenses.
 
+
 -> Folder Structure
 
 src/
@@ -24,6 +25,7 @@ src/
 
 Note: Empty folders have .gitkeep to be tracked in Git.
 
+
 -> Branch Worflow
 
 We follow a feature-branch workflow:
@@ -34,22 +36,23 @@ All active development happens here.
 
 Never push directly to main.
 
-3. Feature branches:
+2. Feature branches:
 Each new feature gets its own branch off dev, named like:
 
 Example: feature-login-page, feature-dashboard, feature-expense-tracker
 
 Work on the assigned branch, commit, and push regularly.
 
-5. Pull Requests (PRs):
+3. Pull Requests (PRs):
    
 When a feature is ready, open a PR from your feature branch → dev.
 
 After review, merge into dev.
 
-7. Merging to main:
+4. Merging to main:
    
 Only fully tested and approved code in dev gets merged into main.
+
 
 -> Naming Conventions
 
@@ -63,13 +66,14 @@ Services: lowercase with camelCase (authService.js)
 
 CSS files: match the component/page (Login.css, Sidebar.css)
 
+
 -> Coding and Git Workflow in VS Code
 
 1. Open the project in VS Code
    
 Open VS Code → File > Open Folder → select your project folder.
 
-3. Switch to your assigned branch
+2. Switch to your assigned branch
    
 Open the integrated terminal in VS Code (Ctrl + ~ on Windows or Cmd + ~ on Mac).
 
@@ -79,29 +83,30 @@ git checkout feature-your-branch
 
 git pull origin feature-your-branch
 
-5. Start Coding
+3. Start Coding
    
 Add or edit files in the appropriate folders (pages/, components/, etc.).
 
 Save your changes (Cmd + S / Ctrl + S).
 
-7. Stage your changes
+4. Stage your changes
    
 (In VS code terminal)Run: git add .
 
 Or use the Source Control panel in VS Code → click the + icon next to changed files.
 
-9. Commit your changes
+5. Commit your changes
     
 (In VS code terminal) Run:git commit -m "Brief description of what you changed"
 
 PS. Make sure the message clearly describes the changes 
 
-11. Push your changes to GitHub
+6. Push your changes to GitHub
     
 (In VS code terminal) Run; git push origin feature-your-branch
 
 Your updates will now be available on GitHub for review or merge.
+
 
 -> Instructions to Run Locally
 
@@ -122,6 +127,7 @@ Your updates will now be available on GitHub for review or merge.
                             git push origin feature-your-branch
 
 Note: Make sure to pull latest dev before starting a new feature branch to avoid conflicts.
+
 
 -> Tips
 
