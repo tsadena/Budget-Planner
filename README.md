@@ -3,7 +3,7 @@
 A simple budget planning software for managing income and expenses.
 
 
--> Folder Structure
+**-> Folder structure**
 
 src/
 
@@ -23,10 +23,10 @@ src/
 
 └─ utils/             # Utility/helper functions (formatting, calculations)
 
-Note: Empty folders have .gitkeep to be tracked in Git.
+**Note: Empty folders have .gitkeep to be tracked in Git.**
 
 
--> Branch Worflow
+**-> Branch Worflow**
 
 We follow a feature-branch workflow:
 
@@ -37,6 +37,7 @@ All active development happens here.
 Never push directly to main.
 
 2. Feature branches:
+   
 Each new feature gets its own branch off dev, named like:
 
 Example: feature-login-page, feature-dashboard, feature-expense-tracker
@@ -54,7 +55,7 @@ After review, merge into dev.
 Only fully tested and approved code in dev gets merged into main.
 
 
--> Naming Conventions
+**-> Naming Conventions**
 
 Branches: feature-<feature-name>
 
@@ -67,7 +68,7 @@ Services: lowercase with camelCase (authService.js)
 CSS files: match the component/page (Login.css, Sidebar.css)
 
 
--> Coding and Git Workflow in VS Code
+**-> Coding and Git Workflow in VS Code**
 
 1. Open the project in VS Code
    
@@ -108,7 +109,7 @@ PS. Make sure the message clearly describes the changes
 Your updates will now be available on GitHub for review or merge.
 
 
--> Instructions to Run Locally
+**-> Instructions to Run Locally**
 
 1. Clone the repo (if you haven’t yet): git clone <repo-url>
                                         cd <repo-folder>
@@ -126,10 +127,10 @@ Your updates will now be available on GitHub for review or merge.
                             git commit -m "Your commit message"
                             git push origin feature-your-branch
 
-Note: Make sure to pull latest dev before starting a new feature branch to avoid conflicts.
+**Note: Make sure to pull latest dev before starting a new feature branch to avoid conflicts.**
 
 
--> Tips
+**-> Tips**
 
 Always work on your feature branch, never directly on dev or main.
 
