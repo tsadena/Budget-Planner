@@ -2,7 +2,7 @@ import React,{useState,useEffect} from "react";
 import AddGoal from "./AddGoal";
 import GoalItem from "./GoalItem";
 
-const App = () => {
+const GoalTracking = () => {
 
   const [goals,setGoals] = useState([])
   const [showAdd, setShowAdd] = useState(false)
@@ -55,7 +55,7 @@ const App = () => {
 
 
 
-export default App
+export default GoalTracking
 
 
 
