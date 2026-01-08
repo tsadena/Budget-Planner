@@ -1,292 +1,91 @@
-import React,{useState,useEffect} from "react";
+import React, { useState } from "react";
+import { Target, Plus, Zap } from "lucide-react";
 import AddGoal from "./AddGoal";
 import GoalItem from "./GoalItem";
 
 const GoalTracking = () => {
-
-  const [goals,setGoals] = useState([])
-  const [showAdd, setShowAdd] = useState(false)
+  // Initial dummy data to make the UI look populated immediately
+  const [goals, setGoals] = useState([
+   
+  ]);
+  const [showAdd, setShowAdd] = useState(false);
 
   function addGoal(goal) {
-    setGoals((g)=> [{...goal , id: UniqueId()}, ...g])
-    setShowAdd(false)
+    setGoals((g) => [{ ...goal, id: UniqueId() }, ...g]);
+    setShowAdd(false);
   }
 
   function updateGoal(id, amount) {
-    setGoals((g)=> g.map(x => (x.id === id)? {...x, currentAmount: Number(amount)}: x))
+    setGoals((g) =>
+      g.map((x) => (x.id === id ? { ...x, currentAmount: Number(amount) } : x))
+    );
   }
-  
+
   function deleteGoal(id) {
-    setGoals((g) => g.filter(x => x.id !== id));
+    setGoals((g) => g.filter((x) => x.id !== id));
   }
-  
+
   function UniqueId() {
-    return Math.random().toString().slice(2,10)
+    return Math.random().toString().slice(2, 10);
   }
+
   return (
-    <>
-    <h1>Goal Tracking</h1>
-    <button onClick={()=> setShowAdd(true)}>Add Goal</button>
-    <div>
-      {goals.map(goal =>
-        <GoalItem 
-        key={goal.id}
-        goal ={goal}
-        onUpdate={updateGoal}
-        onDelete={deleteGoal}
-        />
-      )}
+    <div className="min-h-screen bg-gray-50 flex justify-center py-10 px-4">
+      {/* Main Container Card */}
+      <div className="w-full max-w-6xl bg-white rounded-[2rem] shadow-xl border border-gray-100 p-8 h-fit">
+        
+        {/* Header Section */}
+        <div className="flex justify-between items-center mb-8">
+          <div className="flex items-center gap-3">
+            <h1 className="text-2xl font-extrabold text-gray-900 tracking-tight">Goal Tracking</h1>
+            <span className="bg-yellow-100 text-yellow-700 text-xs font-bold px-2.5 py-1 rounded-full flex items-center gap-1">
+              <Zap size={10} fill="currentColor" /> Premium
+            </span>
+          </div>
+          <div className="bg-gray-100 p-2 rounded-full">
+            <Target className="text-gray-400" size={24} />
+          </div>
+        </div>
+
+        {/* Goals List */}
+        <div className="space-y-2">
+          {goals.map((goal) => (
+            <GoalItem
+              key={goal.id}
+              goal={goal}
+              onUpdate={updateGoal}
+              onDelete={deleteGoal}
+            />
+          ))}
+        </div>
+
+        {/* Empty State */}
+        {goals.length === 0 && !showAdd && (
+          <div className="text-center py-12 border-2 border-dashed border-gray-100 rounded-2xl bg-gray-50/50">
+            <Target className="mx-auto text-gray-300 mb-3" size={48} />
+            <p className="text-gray-500 font-medium">No goals yet.</p>
+            <p className="text-gray-400 text-sm">Start saving for your dreams today.</p>
+          </div>
+        )}
+
+        {/* Add Section */}
+        <div className="mt-6">
+          {showAdd ? (
+            <AddGoal onAdd={addGoal} onCancel={() => setShowAdd(false)} />
+          ) : (
+            <button
+              onClick={() => setShowAdd(true)}
+              className="w-full group bg-gray-900 hover:bg-black text-white py-4 rounded-2xl font-bold text-lg shadow-lg shadow-gray-200 hover:shadow-xl transition-all duration-200 flex items-center justify-center gap-2"
+            >
+              <Plus size={22} className="group-hover:scale-110 transition-transform" /> 
+              Add New Goal
+            </button>
+          )}
+        </div>
+        
+      </div>
     </div>
-    <div>
-      {goals.length === 0 && ( <div>
-        <p>No Tasks added yet. Click the add Goal button ot add one</p>
-      </div> )}
-    </div>
-    <div>
-      {showAdd && <AddGoal 
-      onAdd = {addGoal}
-      onCancel = {()=> setShowAdd(false)} />}
-    </div>
-    </>
-  )
-}
+  );
+};
 
-
-
-
-
-export default GoalTracking
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// import React, { useState, useEffect } from "react";
-
-
-
-// export default function GoalsPage() {
-//   const [goals, setGoals] = useState(sampleGoals());
-//   const [showAdd, setShowAdd] = useState(false);
-
-//   useEffect(() => {
-//     document.title = "Bulga — Goal Tracking";
-//   }, []);
-
-//   function addGoal(goal) {
-//     setGoals((g) => [{ ...goal, id: cryptoId() }, ...g]);
-//     setShowAdd(false);
-//   }
-
-//   function updateGoalAmount(id, amount) {
-//     setGoals((g) => g.map(x => x.id === id ? { ...x, currentAmount: Number(amount) } : x));
-//   }
-
-//   function deleteGoal(id) {
-//     setGoals((g) => g.filter(x => x.id !== id));
-//   }
-
-//   return (
-//     <div >
-//       <div >
-//         <div>
-//           <h1 >Goal Tracking <span >Premium</span></h1>
-//           <div >
-//             <button onClick={() => setShowAdd(true)} >+ Add Goal</button>
-//           </div>
-//         </div>
-
-//         <div >
-//           {goals.map(goal => (
-//             <GoalItem
-//               key={goal.id}
-//               goal={goal}
-//               onUpdate={updateGoalAmount}
-//               onDelete={deleteGoal}
-//             />
-//           ))}
-
-//           {goals.length === 0 && (
-//             <div >No goals yet — click <span >Add Goal</span> to create one.</div>
-//           )}
-//         </div>
-
-//         {showAdd && <AddGoalForm onAdd={addGoal} onClose={() => setShowAdd(false)} />}
-
-//       </div>
-//     </div>
-//   );
-// }
-
-// function GoalItem({ goal, onUpdate, onDelete }) {
-//   const percent = Math.min(100, (goal.currentAmount / goal.targetAmount) * 100 || 0);
-//   const [input, setInput] = useState(goal.currentAmount);
-
-//   useEffect(() => setInput(goal.currentAmount), [goal.currentAmount]);
-
-//   return (
-//     <div >
-//       <div>
-//         <div >
-//           <div>
-//             <GoalIcon name={goal.icon} />
-//           </div>
-//           <div>
-//             <h3 >{goal.title}</h3>
-//             <p >{percent.toFixed(0)}% complete</p>
-//           </div>
-//         </div>
-
-//         <div >
-//           <div >${formatNumber(goal.currentAmount)} / ${formatNumber(goal.targetAmount)}</div>
-//         </div>
-//       </div>
-
-//       <div >
-//         <div >
-//           <div   />
-//         </div>
-//       </div>
-
-//       <div >
-//         <input type="number" value={input} onChange={(e) => setInput(e.target.value)} className="" />
-//         <button onClick={() => onUpdate(goal.id, input)} className="">$ Update Savings</button>
-//         <button onClick={() => onDelete(goal.id)} className="">Delete</button>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function AddGoalForm({ onAdd, onClose }) {
-//   const [title, setTitle] = useState("");
-//   const [icon, setIcon] = useState("airplane");
-//   const [target, setTarget] = useState(0);
-
-//   function submit(e) {
-//     e.preventDefault();
-//     if (!title || target <= 0) return;
-//     onAdd({ title, icon, targetAmount: Number(target), currentAmount: 0 });
-//   }
-
-//   return (
-//     <div className="">
-//       <form onSubmit={submit} className="">
-//         <div className="">
-//           <h4 className="">Add New Goal</h4>
-//           <button type="button" onClick={onClose} >Close</button>
-//         </div>
-
-//         <label className="">Title</label>
-//         <input value={title} onChange={(e) => setTitle(e.target.value)} className="" />
-
-//         <label className="">Target Amount</label>
-//         <input type="number" value={target} onChange={(e) => setTarget(e.target.value)} className="" />
-
-//         <label className="">Icon</label>
-//         <select value={icon} onChange={(e) => setIcon(e.target.value)} className="">
-//           <option value="airplane">Airplane</option>
-//           <option value="home">Home</option>
-//           <option value="education">Education</option>
-//           <option value="car">Car</option>
-//           <option value="other">Other</option>
-//         </select>
-
-//         <div className="">
-//           <button type="button" onClick={onClose} >Cancel</button>
-//           <button type="submit" >Create Goal</button>
-//         </div>
-//       </form>
-//     </div>
-//   );
-// }
-
-
-// function GoalIcon({ name }) {
-//   switch (name) {
-//     case "airplane":
-//       return (
-//         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 16L22 9L16 5L11 11L2 16Z" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-//       );
-//     case "home":
-//       return (
-//         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 11L12 3L21 11V20C21 20.55 20.55 21 20 21H4C3.45 21 3 20.55 3 20V11Z" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-//       );
-//     case "education":
-//       return (
-//         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M2 17L12 22L22 17" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-//       );
-//     case "car":
-//       return (
-//         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M3 13L5 7H19L21 13" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M5 19H7V17H5V19Z" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/><path d="M17 19H19V17H17V19Z" stroke="#ffffff" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/></svg>
-//       );
-//     default:
-//       return (
-//         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="9" stroke="#ffffff" strokeWidth="1.2"/></svg>
-//       );
-//   }
-// }
-
-// function sampleGoals() {
-//   return [
-//     { id: cryptoId(), title: "Vacation Fund", icon: "airplane", targetAmount: 5000, currentAmount: 3200 },
-//     { id: cryptoId(), title: "Emergency Fund", icon: "home", targetAmount: 10000, currentAmount: 7500 },
-//     { id: cryptoId(), title: "Education Fund", icon: "education", targetAmount: 15000, currentAmount: 4200 }
-//   ];
-// }
-
-// function formatNumber(n){
-//   return n.toLocaleString();
-// }
-
-// function cryptoId(){
-//   return Math.random().toString(36).slice(2, 10);
-// }
+export default GoalTracking;

@@ -33,7 +33,7 @@ export default function IncomeTracker() {
   }
 
   return (
-    <div className="p-6 bg-white dark:bg-white-800 rounded-2xl shadow">
+    <div className="w-full max-w-6xl bg-white rounded-[2rem] shadow-xl border border-gray-100 p-8 h-fit">
       <div className="flex items-center justify-between mb-6">
         <h2 className="text-xl font-semibold">Income Tracker</h2>
         <div className="text-sm text-gray-500">Total Income</div>
