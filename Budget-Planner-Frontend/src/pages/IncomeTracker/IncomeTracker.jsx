@@ -3,12 +3,23 @@ import useIncome from "../../hooks/useIncome";
 import IncomeList from "./IncomeList";
 import IncomeForm from "./IncomeForm";
 import { formatCurrency } from "../../utils/format";
+import { useEffect } from "react";
 
 export default function IncomeTracker() {
   const { incomes, addIncome, updateIncome, deleteIncome, getTotal } = useIncome();
   const [showForm, setShowForm] = useState(false);
   const [editItem, setEditItem] = useState(null);
-
+  useEffect(()=>{
+    fetch("/api/incomes", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+    source: "Salary",
+    amount: 5000,
+    date: "2026-01-01"
+  })
+});
+  },[])
   function handleAddClick() {
     setEditItem(null);
     setShowForm(true);

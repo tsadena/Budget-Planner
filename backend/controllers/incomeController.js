@@ -75,3 +75,18 @@ exports.deleteIncome = async (req, res) => {
     res.status(500).json({ message: "Failed to delete income" });
   }
 };
+
+exports.getIncomeById = async (req, res) => {
+  try {
+    const income = await Income.findById(req.params.id);
+
+    if (!income) {
+      return res.status(404).json({ message: "Income not found" });
+    }
+
+    res.status(200).json(income);
+  } catch (err) {
+    console.error("GET INCOME BY ID ERROR:", err);
+    res.status(500).json({ message: "Failed to get income" });
+  }
+};
