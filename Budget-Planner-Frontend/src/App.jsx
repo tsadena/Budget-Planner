@@ -1,18 +1,29 @@
-import React from 'react'
-import GoalTracking from "./pages/PremiumFeatures/GoalTracking"
-import IncomeTracker from './pages/IncomeTracker/IncomeTracker'
-import ExpenseTracker from './pages/ExpenseTracker/ExpenseTracker'
-import DashboardPage from './pages/Dashboard/DashboardPage'
-const App = () => {
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
+
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
+import DashboardPage from "./pages/Dashboard/DashboardPage";
+import IncomeTracker from "./pages/IncomeTracker/IncomeTracker";
+import ExpenseTracker from "./pages/ExpenseTracker/ExpenseTracker";
+import GoalTracking from "./pages/PremiumFeatures/GoalTracking";
+
+function App() {
   return (
-    <>
-    <DashboardPage />
-    <IncomeTracker />
-    <ExpenseTracker />
-    <GoalTracking />
-    
-    </>
-  )
+    <AuthProvider>
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/income" element={<IncomeTracker />} />
+          <Route path="/expense" element={<ExpenseTracker />} />
+          <Route path="/goal-tracking" element={<GoalTracking />} />
+          <Route path="*" element={<Login />} />
+        </Routes>
+      </Router>
+    </AuthProvider>
+  );
 }
 
-export default App
+export default App;

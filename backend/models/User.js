@@ -5,10 +5,11 @@ const UserSchema = new mongoose.Schema({
   name: { type: String, trim: true, required: true },
   email: { type: String, required: true, unique: true, lowercase: true, trim: true },
   password: { type: String, required: true, select: false },
+  profilePhoto: { type: String, default: "" },  
   role: { type: String, enum: ["user","admin"], default: "user" },
   isPremium: { type: Boolean, default: false },
   subscriptionExpiry: { type: Date, default: null },
-  createdAtClient: { type: Date }, // optional: if you want to track client-created timestamp
+  createdAtClient: { type: Date },
 }, { timestamps: true });
 
 UserSchema.pre("save", async function(next) {
