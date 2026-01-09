@@ -3,7 +3,7 @@ const Income = require("../models/Income");
 // TEMP: until auth is implemented
 const getUserId = (req) => req.userId || "TEMP_USER_ID";
 
-/* GET all income */
+
 exports.getAllIncome = async (req, res) => {
   try {
     const incomes = await Income.find({ userId: getUserId(req) })
@@ -13,9 +13,11 @@ exports.getAllIncome = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch income" });
   }
+  console.log("GET /api/income called");
+
 };
 
-/* CREATE income */
+
 exports.createIncome = async (req, res) => {
   try {
     const { amount, source, date, categoryId, notes } = req.body;
@@ -39,7 +41,6 @@ exports.createIncome = async (req, res) => {
   }
 };
 
-/* UPDATE income */
 exports.updateIncome = async (req, res) => {
   try {
     const income = await Income.findOneAndUpdate(
@@ -58,7 +59,6 @@ exports.updateIncome = async (req, res) => {
   }
 };
 
-/* DELETE income */
 exports.deleteIncome = async (req, res) => {
   try {
     const income = await Income.findOneAndDelete({

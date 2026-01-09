@@ -1,44 +1,37 @@
-import { useState, useEffect } from "react";
 
-const STORAGE_KEY = "bulga_incomes_v1";
+import { useEffect, useState } from "react";
+import * as incomeSvc from "../services/incomeService";
 
 export default function useIncome() {
-  const [incomes, setIncomes] = useState(() => {
+  const [incomes, setIncomes] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  async function load() {
     try {
-      const raw = localStorage.getItem(STORAGE_KEY);
-      return raw ? JSON.parse(raw) : [];
-    } catch {
-      return [];
+      setLoading(true);
+      const data = await incomeSvc.fetchIncomes();
+      setIncomes(data.map(i => ({ ...i, id: i._id || i.id })));
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setLoading(false);
     }
-  });
+  }
+
+  async function addIncome(payload) {
+    const created = await incomeSvc.postIncome(payload);
+    setIncomes(prev => [{ ...created, id: created._id || created.id }, ...prev]);
+    return created;
+  }
 
   useEffect(() => {
-    try {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(incomes));
-    } catch {}
-  }, [incomes]);
-
-  function generateId() {
-    return Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
-  }
-
-  function addIncome(payload) {
-    const record = { id: generateId(), ...payload };
-    setIncomes(prev => [record, ...prev]);
-    return record;
-  }
-
-  function updateIncome(id, payload) {
-    setIncomes(prev => prev.map(i => (i.id === id ? { ...i, ...payload } : i)));
-  }
-
-  function deleteIncome(id) {
-    setIncomes(prev => prev.filter(i => i.id !== id));
-  }
+    load();
+  }, []);
 
   function getTotal() {
     return incomes.reduce((s, i) => s + Number(i.amount || 0), 0);
   }
 
-  return { incomes, addIncome, updateIncome, deleteIncome, getTotal };
+  return { incomes, loading, error, load, addIncome, getTotal };
 }
