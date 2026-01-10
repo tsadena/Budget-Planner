@@ -56,7 +56,7 @@ export default function DashboardPage() {
         <div className="w-full">
           <section className="card bg-white p-4 rounded shadow h-full">
             <h3 className="font-medium text-lg mb-4">Financial Overview</h3>
-            <div className="flex justify-center">
+            <div className="flex justify-center" style={{ height: 300 , minWidth: 0}}>
                 <DonutChart
                 totalIncome={summary?.totalIncome ?? 0}
                 totalExpenses={summary?.totalExpenses ?? 0}
