@@ -11,3 +11,9 @@ export async function fetchRecent() {
   if (!res.ok) throw new Error(`Recent fetch failed: ${res.status}`);
   return res.json();
 }
+
+export async function fetchMonthly() {
+  const res = await fetch(`${API_BASE}/api/dashboard/monthly`);
+  if (!res.ok) throw new Error(`Monthly fetch failed: ${res.status}`);
+  return res.json();
+}

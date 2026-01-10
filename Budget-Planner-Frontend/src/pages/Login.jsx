@@ -21,7 +21,7 @@ export default function Login() {
       login(res.data.user);
       localStorage.setItem("token", res.data.token);
       alert("Logged in");
-      navigate("/income"); // redirect after login
+      navigate("/dashboard"); 
     } catch (err) {
       alert(err.response?.data?.message || "Login failed");
     }

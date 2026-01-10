@@ -1,6 +1,6 @@
 const Income = require("../models/Income");
 
-// TEMP: until auth is implemented
+
 const getUserId = (req) => req.userId || "TEMP_USER_ID";
 
 
@@ -13,7 +13,6 @@ exports.getAllIncome = async (req, res) => {
   } catch (error) {
     res.status(500).json({ message: "Failed to fetch income" });
   }
-  console.log("GET /api/income called");
 
 };
 

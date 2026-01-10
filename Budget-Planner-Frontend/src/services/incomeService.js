@@ -1,9 +1,16 @@
 const API_BASE = import.meta.env.VITE_API_URL || "http://localhost:3000";
 
+async function handle(res, msg) {
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(msg || text || res.status);
+  }
+  return res.json();
+}
+
 export async function fetchIncomes() {
   const res = await fetch(`${API_BASE}/api/incomes`);
-  if (!res.ok) throw new Error(`Incomes fetch failed: ${res.status}`);
-  return res.json();
+  return handle(res, "Incomes fetch failed");
 }
 
 export async function postIncome(payload) {
@@ -12,8 +19,7 @@ export async function postIncome(payload) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   });
-  if (!res.ok) throw new Error("Failed to add income");
-  return res.json();
+  return handle(res, "Failed to add income");
 }
 
 export async function updateIncome(id, payload) {
@@ -22,12 +28,12 @@ export async function updateIncome(id, payload) {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(payload)
   });
-  if (!res.ok) throw new Error("Failed to update income");
-  return res.json();
+  return handle(res, "Failed to update income");
 }
 
 export async function deleteIncome(id) {
-  const res = await fetch(`${API_BASE}/api/incomes/${id}`, { method: "DELETE" });
-  if (!res.ok) throw new Error("Failed to delete income");
-  return res.json();
+  const res = await fetch(`${API_BASE}/api/incomes/${id}`, {
+    method: "DELETE"
+  });
+  return handle(res, "Failed to delete income");
 }

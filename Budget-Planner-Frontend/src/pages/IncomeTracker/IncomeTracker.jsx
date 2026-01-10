@@ -4,11 +4,14 @@ import IncomeList from "./IncomeList";
 import IncomeForm from "./IncomeForm";
 import { formatCurrency } from "../../utils/format";
 import { useEffect } from "react";
+import useDashboard from "../../hooks/useDashboard";
+import IncomeMonthlyChart from "../../components/charts/IncomeMonthlyChart";
 
 export default function IncomeTracker() {
-  const { incomes, addIncome, updateIncome, deleteIncome, getTotal } = useIncome();
+  const { incomes, addIncome, updateIncome, removeIncome, getTotal } = useIncome();
   const [showForm, setShowForm] = useState(false);
   const [editItem, setEditItem] = useState(null);
+  const { monthly } = useDashboard();
   useEffect(()=>{
     fetch("/api/incomes", {
     method: "POST",
@@ -39,8 +42,8 @@ export default function IncomeTracker() {
   }
 
   function handleDelete(id) {
-    if (!confirm("Delete this income?")) return;
-    deleteIncome(id);
+      removeIncome(id);
+
   }
 
   return (
@@ -63,6 +66,11 @@ export default function IncomeTracker() {
       </div>
 
       <IncomeForm open={showForm} onClose={() => setShowForm(false)} onSave={handleSave} initial={editItem} />
+        <div>
+
+      <IncomeMonthlyChart data={monthly} />
     </div>
+    </div>
+    
   );
 }
