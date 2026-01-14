@@ -14,7 +14,6 @@ export default function RecentTransactions({ transactions = [], loading = false 
     <div className="space-y-3">
       <div className="flex justify-between items-center mb-2">
         <h3 className="text-lg font-semibold">Recent Transactions</h3>
-        <button className="text-sm text-sky-600">See All →</button>
       </div>
 
       {transactions.map(tx => (

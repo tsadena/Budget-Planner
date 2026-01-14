@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import * as incomeSvc from "../services/incomeService";
 
@@ -25,6 +24,12 @@ export default function useIncome() {
     return created;
   }
 
+  
+  async function removeIncome(id) {
+    await incomeSvc.deleteIncome(id);
+    setIncomes(prev => prev.filter(i => i.id !== id));
+  }
+
   useEffect(() => {
     load();
   }, []);
@@ -33,5 +38,13 @@ export default function useIncome() {
     return incomes.reduce((s, i) => s + Number(i.amount || 0), 0);
   }
 
-  return { incomes, loading, error, load, addIncome, getTotal };
+  return {
+    incomes,
+    loading,
+    error,
+    load,
+    addIncome,
+    removeIncome, // ✅ EXPORT IT
+    getTotal
+  };
 }
